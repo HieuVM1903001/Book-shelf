@@ -14,6 +14,7 @@ npm (v6 or higher)
 Clone the Repository
 
 git clone https://github.com/HieuVM1903001/Book-shelf.git
+
 cd bookshelf-webapp
 
 Install Dependencies
