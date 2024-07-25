@@ -12,23 +12,23 @@ Prerequisites
 Node.js (v14 or higher)
 npm (v6 or higher)
 Clone the Repository
-sh
+
 git clone https://github.com/HieuVM1903001/Book-shelf.git
 cd bookshelf-webapp
 
 Install Dependencies
-sh
+
 npm install
 
 Usage
 Running the Application
-sh
+
 npm start
 
 This will start the application on http://localhost:3000.
 
 Building for Production
-sh
+
 npm run build
 
 This will create a production-ready build of the application in the build directory.
