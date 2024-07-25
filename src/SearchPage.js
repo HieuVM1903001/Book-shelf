@@ -2,34 +2,52 @@ import { useEffect, useState } from "react";
 import { Button, Input, Typography, Layout } from "antd";
 import { useNavigate } from "react-router-dom";
 import { BookShelf } from "./BookShelf";
+import { search } from "./BooksAPI";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
-export const SearchPage = ({ listBook, onShelfSelect }) => {
+export const SearchPage = ({ booksOnShelf }) => {
   const navigate = useNavigate();
   const [input, setInput] = useState("");
-  const [bookList, setBookList] = useState(listBook);
+  const [bookList, setBookList] = useState([]);
 
   const onInputChange = (e) => {
     setInput(e.target.value);
   };
 
   useEffect(() => {
-    if (input) {
-      const match = listBook.filter(
-        (bookData) =>
-          bookData?.title.toLowerCase().includes(input.toLowerCase()) ||
-          bookData?.authors.some((author) =>
-            author.toLowerCase().includes(input.toLowerCase())
-          )
-      );
-      setBookList(match);
-    } else {
-      setBookList(listBook);
-    }
-  }, [input, listBook]);
-
+    let isMounted = true;
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    const fetchBooks = async () => {
+      try {
+        if (!input) {
+          setBookList([]);
+          return;
+        }  
+        const books = await search(input, 100, { signal });  
+        if (isMounted && !books.error) {
+          console.log({ books });
+          const bookIDs = booksOnShelf.map(book=>book.id)
+          const categorized = books.map(book => {
+            if(bookIDs.includes(book.id)){
+              return booksOnShelf.find(bookOnshelf => bookOnshelf.id === book.id)
+            }
+            return book
+          })
+          setBookList(categorized);
+        }
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    };  
+    fetchBooks();
+    return () => {
+      isMounted = false;
+      abortController.abort();
+    };
+  }, [input]);
   const onClose = () => {
     navigate("/");
   };
@@ -52,7 +70,6 @@ export const SearchPage = ({ listBook, onShelfSelect }) => {
         <BookShelf
           category="Search Results"
           bookList={bookList}
-          onShelfSelect={onShelfSelect}
         />
       </Content>
     </Layout>

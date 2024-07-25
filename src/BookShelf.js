@@ -1,7 +1,7 @@
 import { List, Typography } from "antd";
 import { BookItem } from "./BookItem";
 
-export const BookShelf = ({ category, bookList, onShelfSelect }) => {
+export const BookShelf = ({ category, bookList }) => {
   return (
     <div style={{ marginBottom: "24px" }}>
       <Typography level={3} style={{ textAlign: "left", marginBottom: "16px" }}>
@@ -12,7 +12,7 @@ export const BookShelf = ({ category, bookList, onShelfSelect }) => {
         dataSource={bookList}
         renderItem={(item) => (
           <List.Item key={item?.id}>
-            <BookItem bookData={item} onShelfSelect={onShelfSelect} />
+            <BookItem bookData={item} />
           </List.Item>
         )}
       />

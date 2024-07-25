@@ -1,8 +1,9 @@
 import { Card, Select, Typography, Tooltip, Image } from "antd";
 import { useState } from "react";
+import { update } from "./BooksAPI";
 
-export const BookItem = ({ bookData, onShelfSelect }) => {
-  const [current, setCurrent] = useState(bookData.shelf);
+export const BookItem = ({ bookData }) => {
+  const [current, setCurrent] = useState(bookData.shelf || "none");
 
   const authorsList = () => {
     return bookData?.authors?.map((author, index) => (
@@ -46,8 +47,8 @@ export const BookItem = ({ bookData, onShelfSelect }) => {
           key="shelf-select"
           style={{ width: 150 }}
           options={items}
-          onChange={(value) => {
-            onShelfSelect(value, bookData);
+          onChange={async(value) => {
+            await update(bookData, value);
             setCurrent(value);
           }}
           defaultValue={current}

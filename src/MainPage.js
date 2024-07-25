@@ -2,7 +2,7 @@ import { Button, Layout, Row, Col } from "antd";
 import { useNavigate } from "react-router-dom";
 import { BookShelf } from "./BookShelf";
 const { Header, Footer, Content } = Layout;
-export const MainPage = ({ allBooks, onShelfSelect }) => {
+export const MainPage = ({ allBooks }) => {
   const navigate = useNavigate();
   const onSearchClick = () => {
     navigate("/search");
@@ -59,7 +59,6 @@ export const MainPage = ({ allBooks, onShelfSelect }) => {
                 bookList={allBooks.filter(
                   (bookData) => bookData.shelf === "currentlyReading"
                 )}
-                onShelfSelect={onShelfSelect}
               />
             </Col>
             <Col span={24}>
@@ -68,7 +67,6 @@ export const MainPage = ({ allBooks, onShelfSelect }) => {
                 bookList={allBooks.filter(
                   (bookData) => bookData.shelf === "wantToRead"
                 )}
-                onShelfSelect={onShelfSelect}
               />
             </Col>
             <Col span={24}>
@@ -77,7 +75,6 @@ export const MainPage = ({ allBooks, onShelfSelect }) => {
                 bookList={allBooks.filter(
                   (bookData) => bookData.shelf === "read"
                 )}
-                onShelfSelect={onShelfSelect}
               />
             </Col>
           </Row>
