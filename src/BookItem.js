@@ -47,7 +47,7 @@ export const BookItem = ({ bookData }) => {
           key="shelf-select"
           style={{ width: 150 }}
           options={items}
-          onChange={async(value) => {
+          onChange={async (value) => {
             await update(bookData, value);
             setCurrent(value);
           }}

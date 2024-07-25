@@ -17,17 +17,11 @@ function App() {
 
   return (
     <Routes>
-      <Route
-        exact
-        path="/"
-        element={<MainPage allBooks={allBooks}  />}
-      />
+      <Route exact path="/" element={<MainPage allBooks={allBooks} />} />
       <Route
         exact
         path="/search"
-        element={
-          <SearchPage booksOnShelf={allBooks} />
-        }
+        element={<SearchPage booksOnShelf={allBooks} />}
       />
     </Routes>
   );

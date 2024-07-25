@@ -25,23 +25,25 @@ export const SearchPage = ({ booksOnShelf }) => {
         if (!input) {
           setBookList([]);
           return;
-        }  
-        const books = await search(input, 100, { signal });  
+        }
+        const books = await search(input, 100, { signal });
         if (isMounted && !books.error) {
           console.log({ books });
-          const bookIDs = booksOnShelf.map(book=>book.id)
-          const categorized = books.map(book => {
-            if(bookIDs.includes(book.id)){
-              return booksOnShelf.find(bookOnshelf => bookOnshelf.id === book.id)
+          const bookIDs = booksOnShelf.map((book) => book.id);
+          const categorized = books.map((book) => {
+            if (bookIDs.includes(book.id)) {
+              return booksOnShelf.find(
+                (bookOnshelf) => bookOnshelf.id === book.id
+              );
             }
-            return book
-          })
+            return book;
+          });
           setBookList(categorized);
         }
       } catch (error) {
-        console.error('Error fetching books:', error);
+        console.error("Error fetching books:", error);
       }
-    };  
+    };
     fetchBooks();
     return () => {
       isMounted = false;
@@ -67,10 +69,7 @@ export const SearchPage = ({ booksOnShelf }) => {
           onChange={onInputChange}
           style={{ marginBottom: "24px" }}
         />
-        <BookShelf
-          category="Search Results"
-          bookList={bookList}
-        />
+        <BookShelf category="Search Results" bookList={bookList} />
       </Content>
     </Layout>
   );
