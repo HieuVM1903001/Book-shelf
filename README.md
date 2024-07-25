@@ -15,7 +15,7 @@ Clone the Repository
 
 git clone https://github.com/HieuVM1903001/Book-shelf.git
 
-cd bookshelf-webapp
+cd book-shelf
 
 Install Dependencies
 
